@@ -19,7 +19,7 @@ def call_command(cmd, log_file=None, return_std=False):
     if log_file is not None:
         with io.open(log_file, "wb") as log:
             proc = Popen(cmd, stdout=log, stderr=log, shell=True)
-            _ = proc.communicate()
+            _ = proc.communicate('done\n'.encode())
             exitcode = proc.returncode
 
         if exitcode != 0:
