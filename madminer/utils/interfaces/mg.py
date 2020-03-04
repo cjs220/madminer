@@ -3,6 +3,7 @@ from __future__ import absolute_import, division, print_function, unicode_litera
 import os
 import shutil
 import logging
+from pathlib import Path
 
 from madminer.utils.various import call_command, make_file_executable, create_missing_folders
 
@@ -255,10 +256,10 @@ def setup_mg_with_scripts(
             "/Cards/pythia8_card.dat",
         )
 
-    if configuration_card_file_from_mgprocdir is not None:
+    if configuration_file_from_mgprocdir is not None:
         copy_commands += "cp {}/{} {}{}\n".format(
             mg_process_directory_placeholder,
-            configuration_card_file_from_mgprocdir,
+            configuration_file_from_mgprocdir,
             mg_process_directory_placeholder,
             "/Cards/me5_configuration.txt",
         )
@@ -386,6 +387,8 @@ def run_mg(
     logger.info("Starting MadGraph and Pythia in %s", mg_process_directory)
 
     # Copy cards
+    if not os.path.exists(mg_process_directory + '/Cards'):
+        os.mkdir(mg_process_directory + '/Cards')
     if run_card_file is not None:
         shutil.copyfile(run_card_file, mg_process_directory + "/Cards/run_card.dat")
     if param_card_file is not None:
