@@ -18,7 +18,7 @@ initialized = False
 def call_command(cmd, log_file=None, return_std=False):
     if log_file is not None:
         with io.open(log_file, "wb") as log:
-            proc = Popen(cmd, stdout=log, stderr=log, shell=True)
+            proc = Popen(cmd, stdout=log, stderr=log, shell=True, stdin=PIPE)
             _ = proc.communicate('done\n'.encode())
             exitcode = proc.returncode
 
