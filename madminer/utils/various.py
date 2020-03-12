@@ -21,6 +21,8 @@ def call_command(cmd, log_file=None, return_std=False):
             proc = Popen(cmd, stdout=log, stderr=log, shell=True, stdin=PIPE)
             _ = proc.communicate('done\n'.encode())
             exitcode = proc.returncode
+            # os.system(cmd)
+            # exitcode = 0
 
         if exitcode != 0:
             raise RuntimeError(

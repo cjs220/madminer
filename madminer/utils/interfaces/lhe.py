@@ -259,7 +259,9 @@ def parse_lhe_file(
         if is_background:
             output_weights[benchmark_name] = weights_all_events[sampling_benchmark]
         else:
-            output_weights[benchmark_name] = weights_all_events[benchmark_name]
+            # output_weights[benchmark_name] = weights_all_events[benchmark_name]
+            # TODO: remove this ridiculous hack
+            output_weights[benchmark_name] = list(weights_all_events.values())[0]
     for syst_name, syst_data in six.iteritems(systematics_dict):
         for (
             nuisance_param_name,
